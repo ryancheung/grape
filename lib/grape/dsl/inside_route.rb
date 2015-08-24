@@ -240,7 +240,13 @@ module Grape
           representation = @body.merge(representation)
         end
 
-        body representation
+        if options[:body_key] == false
+          body representation
+        else
+          body_key = options[:body_key] || :body
+
+          body(body_key => representation)
+        end
       end
 
       # Returns route information for the current request.
